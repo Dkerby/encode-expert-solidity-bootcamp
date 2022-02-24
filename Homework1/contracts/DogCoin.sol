@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
 
@@ -16,11 +16,10 @@ contract DogCoin is ERC20 {
         _mint(account, amount);
     }
 
-
     function transfer(address account, uint256 amount) public override returns (bool) {
-        holders.push(account);   
-        for(uint256 i = 0; i < holders.length;i++) {
-            if(holders[i] == msg.sender && amount == balanceOf(msg.sender)) {
+        holders.push(account);
+        for (uint256 i = 0; i < holders.length; i++) {
+            if (holders[i] == msg.sender && amount == balanceOf(msg.sender)) {
                 holders[i] = holders[holders.length - 1];
                 holders.pop();
             }
@@ -30,10 +29,14 @@ contract DogCoin is ERC20 {
         return true;
     }
 
-    function transferFrom(address from, address to, uint256 amount) public override returns (bool) {
-        holders.push(to);   
-        for(uint256 i = 0; i < holders.length;i++) {
-            if(holders[i] == from && amount == balanceOf(from)) {
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) public override returns (bool) {
+        holders.push(to);
+        for (uint256 i = 0; i < holders.length; i++) {
+            if (holders[i] == from && amount == balanceOf(from)) {
                 holders[i] = holders[holders.length - 1];
                 holders.pop();
             }
@@ -46,8 +49,8 @@ contract DogCoin is ERC20 {
     }
 
     function burn(address account, uint256 amount) public {
-        for(uint256 i = 0; i < holders.length;i++) {
-            if(holders[i] == account && amount == balanceOf(account)) {
+        for (uint256 i = 0; i < holders.length; i++) {
+            if (holders[i] == account && amount == balanceOf(account)) {
                 holders[i] = holders[holders.length - 1];
                 holders.pop();
             }

@@ -8,7 +8,7 @@ contract DogCoin is ERC20 {
     address[] holders;
 
     constructor(uint256 initialSupply) ERC20("DogCoin", "DOG") {
-        holders.push(account);
+        holders.push(msg.sender);
         _mint(msg.sender, initialSupply);
     }
 
